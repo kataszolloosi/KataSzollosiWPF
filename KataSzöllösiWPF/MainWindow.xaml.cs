@@ -21,7 +21,7 @@ namespace KataSzöllösiWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        SuperheroViewModel superHeroViewModel = new SuperheroViewModel();   
+        SuperheroViewModel superHeroViewModel = new SuperheroViewModel();
         public MainWindow()
         {
             InitializeComponent();
@@ -71,9 +71,25 @@ namespace KataSzöllösiWPF
 
         private void AddNewSuperhero_Click(object sender, RoutedEventArgs e)
         {
-            AddNewSuperheroWindow add = new AddNewSuperheroWindow();
-            
-            
+            AddNewSuperheroWindow addNewSuperheroWindow = new AddNewSuperheroWindow();
+            //SuperheroViewModel svm = new SuperheroViewModel();
+            addNewSuperheroWindow.DataContext = this.DataContext;
+            addNewSuperheroWindow.ShowDialog();
+        }
+
+        private void RemoveSuperhero_Click(object sender, RoutedEventArgs e)
+        {
+            superHeroViewModel.RemoveSuperhero(superHeroViewModel.SelectedSuperhero);
+        }
+
+        private void OpenSuchWindow_Click(object sender, RoutedEventArgs e)
+        {
+            SuchWindow suche = new SuchWindow();
+            superHeroViewModel.SearchString = "";
+            suche.DataContext = superHeroViewModel;
+            superHeroViewModel.SearchResult = new System.Collections.ObjectModel.ObservableCollection<Superhero>();
+
+            suche.Show();
         }
     }
 }

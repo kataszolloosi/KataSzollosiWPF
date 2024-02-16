@@ -10,7 +10,7 @@ namespace KataSzöllösiWPF.Models
 {
     internal class SuperheroViewModel : INotifyPropertyChanged
     {
-        private SuperheroDBContext dbContext = new SuperheroDBContext();    
+        private SuperheroDBContext2 dbContext2 = new SuperheroDBContext2();    
         
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyGui(string propname)
@@ -26,7 +26,7 @@ namespace KataSzöllösiWPF.Models
         public SuperheroViewModel() 
         {
             ObsSuperheroes = new ObservableCollection<Superhero>();
-            var mySuperheroesLocalFromDb = dbContext.Superheroes.ToList();
+            var mySuperheroesLocalFromDb = dbContext2.Superheroes.ToList();
             foreach (var superero in mySuperheroesLocalFromDb)
             {
                 ObsSuperheroes.Add(superero);
@@ -37,24 +37,31 @@ namespace KataSzöllösiWPF.Models
 
         public int AddSuperhero(Superhero newSuperhero)
         {
-            dbContext.Superheroes.Add(newSuperhero);
+            dbContext2.Superheroes.Add(newSuperhero);
             ObsSuperheroes.Add(newSuperhero);
-            dbContext.SaveChanges();
+            dbContext2.SaveChanges();
+            ChangeStatusText();
+            StatusText2 = newSuperhero.Name + " Welcome our crew";
+            NotifyGui("StatusText2");
             return newSuperhero.Id;
         }
 
         internal void RemoveSuperhero(Superhero selectedSuperhero)
         {
             ObsSuperheroes.Remove(selectedSuperhero);
-            dbContext.Superheroes.Remove(selectedSuperhero);
+            dbContext2.Superheroes.Remove(selectedSuperhero);
             ChangeStatusText();
-            dbContext.SaveChanges();
+            StatusText3 = selectedSuperhero.Name + " sorry, you are not sufficient...";
+            NotifyGui("StatusText3");
+            dbContext2.SaveChanges();
         }
 
         public string StatusText { get; set; }
+        public string StatusText2 { get; set; }
+        public string StatusText3 { get; set; }
         private void ChangeStatusText()
         {
-            StatusText = "Momentan sind " + dbContext.Superheroes.ToList().Count.ToString() + " Superhero in DB";
+            StatusText = "Momentan sind " + dbContext2.Superheroes.ToList().Count.ToString() + " Superhero in DB";
             NotifyGui("StatusText");
         }
 
@@ -94,6 +101,25 @@ namespace KataSzöllösiWPF.Models
                         SearchResult.Add(item);
                     }
                 }
+            }
+        }
+
+
+        private int _selectedSuperheroPowerLevel;
+
+        public int SelectedSuperheroPowerLevel
+        {
+            get { return _selectedSuperheroPowerLevel; }
+            set
+            {
+                _selectedSuperheroPowerLevel = value;
+                NotifyGui("SelectedSuperheroPowerLevel");
+
+                if (SelectedSuperhero != null)
+                {
+                    SelectedSuperhero.PowerLevel = value;
+                }
+                
             }
         }
     }

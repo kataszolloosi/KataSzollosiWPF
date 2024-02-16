@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KataSzöllösiWPF.Models
 {
-    internal class SuperheroDBContext :DbContext
+    internal class SuperheroDBContext2 :DbContext
     {
         public DbSet<Superhero> Superheroes { get; set; }
     }

@@ -8,40 +8,40 @@
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Datei">
-                <MenuItem Header="Neu " Click="AddNewSuperhero_Click"></MenuItem>
-                <MenuItem Header="Beenden"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="Bearbeiten">
-                <MenuItem Header="Ausschneiden"></MenuItem>
+            <MenuItem Header="Menu">
+                <MenuItem Header="Neu" Click="AddNewSuperhero_Click"></MenuItem>
                 <MenuItem Header="Kopieren"></MenuItem>
+                <MenuItem Header="Suchen" Click="OpenSuchWindow_Click"></MenuItem>
+                <MenuItem Header="Löschen" Click="RemoveSuperhero_Click"></MenuItem>
             </MenuItem>
         </Menu>
 
         <ToolBar DockPanel.Dock="Top" Height="27">
             <Button Click="AddNewSuperhero_Click">Neu</Button>
             <Button>Kopieren</Button>
-            <Button>Beenden</Button>
+            <Button Click="OpenSuchWindow_Click">Suchen</Button>
+            <Button Click="RemoveSuperhero_Click">Löschen</Button>
         </ToolBar>
 
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem Content="{Binding StatusText}"></StatusBarItem>
+            <StatusBarItem Content="{Binding StatusText2}"></StatusBarItem>
+            <StatusBarItem Content="{Binding StatusText3}"></StatusBarItem>
         </StatusBar>
 
         <StackPanel Orientation="Horizontal">
-            <StackPanel>
-            <Label>SuperheroName</Label>
-            <ListBox ItemsSource="{Binding ObsSuperheroes}"
-                     SelectedItem="{Binding SelectedSuperhero}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Name}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            </StackPanel>
+            <GroupBox Header="Superheroes">
+                <ListBox ItemsSource="{Binding ObsSuperheroes}"
+                         SelectedItem="{Binding SelectedSuperhero}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </GroupBox>
             <GroupBox Header="Details">
                 <StackPanel>
                     <Label>PowerLevel</Label>
@@ -56,5 +56,13 @@
                 <Image Source="{Binding SelectedSuperhero.Bild}" Width="200" Height="300"/>
             </GroupBox>
         </StackPanel>
+
+        <StackPanel Orientation="Vertical">
+            <Label>PowerLevel erhöhen</Label>
+            <TextBlock>einen Superhelden auswählen</TextBlock>
+            <Slider Minimum="100" Maximum="7500" Value="{Binding SelectedSuperheroPowerLevel, Mode=TwoWay}"></Slider>
+            <TextBlock Text="{Binding SelectedSuperheroPowerLevel}"/>
+        </StackPanel>
+        
     </DockPanel>
 </Window>

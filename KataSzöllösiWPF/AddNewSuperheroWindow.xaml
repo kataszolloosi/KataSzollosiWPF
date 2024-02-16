@@ -8,28 +8,28 @@
         Title="AddNewSuperheroWindow" Height="350" Width="400">
     <WrapPanel>
         <StackPanel Orientation="Horizontal">
-            <Button Click="BlackPantherButton_Click">
+            <Button Click="BlackPanther_Click">
                 <Image Source="blackpanther.jpg" Width="200" Height="100"/>
             </Button>
-            <Button Click="SpidermanButton_Click">
+            <Button Click="Spiderman_Click">
                 <Image Source="spiderman.jpg" Width="200" Height="100"/>
             </Button>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
-            <Button Click="GrootButton_Click">
+            <Button Click="Groot_Click" >
                 <Image Source="groot.jpg" Width="200" Height="100"/>
             </Button>
-            <Button Click="HawkeyeButton_Click">
+            <Button Click="Hawkeye_Click" >
                 <Image Source="Hawkeye.jpg" Width="200" Height="100"/>
             </Button>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
-            <Button Click="LokiButton_Click">
+            <Button Click="Loki_Click" >
                 <Image Source="loki.jpg" Width="200" Height="100"/>
             </Button>
-            <Button Click="BlackWidowButton_Click">
+            <Button Click="Blackwidow_Click" >
                 <Image Source="blackwidow.jpg" Width="200" Height="100"/>
             </Button>
         </StackPanel>

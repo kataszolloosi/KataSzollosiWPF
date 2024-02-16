@@ -30,11 +30,13 @@ namespace KataSzöllösiWPF.Models
             set { _name = value; }
         }
 
-        private double _powerLevel;
-        public double PowerLevel
+        private int _powerLevel;
+        public int PowerLevel
         {
             get { return _powerLevel; }
-            set { _powerLevel = value; }
+            set { _powerLevel = value;
+                NotifyGui("PowerLevel");
+            }
         }
 
         private bool _isHuman;
