@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace KataSzöllösiWPF.Models
 {
@@ -50,7 +52,9 @@ namespace KataSzöllösiWPF.Models
         public DateTime FirstAppearance
         {
             get { return _firstAppearance; }
-            set { _firstAppearance = value; }
+            set { _firstAppearance = value;
+                NotifyGui("FirstAppearance");
+            }
         }
 
         private string _bild;

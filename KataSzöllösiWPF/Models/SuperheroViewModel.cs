@@ -92,11 +92,11 @@ namespace KataSzöllösiWPF.Models
         public string SearchString
         {
             get { return _searchString; }
-            set { _searchString = value;
+            set { _searchString = value.ToLower();
                 SearchResult.Clear();
                 foreach (var item in ObsSuperheroes)
                 {
-                    if (item.Name.Contains(_searchString))
+                    if (item.Name.ToLower().Contains(_searchString))
                     {
                         SearchResult.Add(item);
                     }

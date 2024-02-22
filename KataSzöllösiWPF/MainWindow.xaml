@@ -3,36 +3,61 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:KataSzöllösiWPF"
+        xmlns:local="clr-namespace:KataSzöllösiWPF" 
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
+        Title="Kata Szöllösi" Height="550" Width="800">
+
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style TargetType="MenuItem">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="DarkGoldenrod"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="MidnightBlue"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
             <MenuItem Header="Menu">
                 <MenuItem Header="Neu" Click="AddNewSuperhero_Click"></MenuItem>
-                <MenuItem Header="Kopieren"></MenuItem>
+                <MenuItem Header="Kopieren" Click="Copy_Click"></MenuItem>
                 <MenuItem Header="Suchen" Click="OpenSuchWindow_Click"></MenuItem>
                 <MenuItem Header="Löschen" Click="RemoveSuperhero_Click"></MenuItem>
             </MenuItem>
         </Menu>
 
-        <ToolBar DockPanel.Dock="Top" Height="27">
-            <Button Click="AddNewSuperhero_Click">Neu</Button>
-            <Button>Kopieren</Button>
-            <Button Click="OpenSuchWindow_Click">Suchen</Button>
-            <Button Click="RemoveSuperhero_Click">Löschen</Button>
+        <ToolBar Grid.Row="1" Height="27">
+            <Button Click="AddNewSuperhero_Click" Style="{StaticResource ButtonStyle}">Neu</Button>
+            <Button Click="Copy_Click" Style="{StaticResource ButtonStyle}">Kopieren</Button>
+            <Button Click="OpenSuchWindow_Click" Style="{StaticResource ButtonStyle}">Suchen</Button>
+            <Button Click="RemoveSuperhero_Click" Style="{StaticResource ButtonStyle}">Löschen</Button>
         </ToolBar>
 
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem Content="{Binding StatusText}"></StatusBarItem>
-            <StatusBarItem Content="{Binding StatusText2}"></StatusBarItem>
-            <StatusBarItem Content="{Binding StatusText3}"></StatusBarItem>
-        </StatusBar>
-
-        <StackPanel Orientation="Horizontal">
-            <GroupBox Header="Superheroes">
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <GroupBox>
+                <GroupBox.Header>
+                    <TextBlock Text="Superheroes" FontWeight="Bold" FontSize="14" Foreground="Red"/>
+                </GroupBox.Header>
                 <ListBox ItemsSource="{Binding ObsSuperheroes}"
-                         SelectedItem="{Binding SelectedSuperhero}">
+                        SelectedItem="{Binding SelectedSuperhero}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
@@ -42,27 +67,50 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </GroupBox>
-            <GroupBox Header="Details">
+            <GroupBox>
+                <GroupBox.Header>
+                    <TextBlock Text="Details" FontWeight="Bold" FontSize="14" Foreground="Red"/>
+                </GroupBox.Header>
                 <StackPanel>
                     <Label>PowerLevel</Label>
                     <TextBlock Text="{Binding SelectedSuperhero.PowerLevel, UpdateSourceTrigger=PropertyChanged}"/>
                     <Label>Human?</Label>
-                    <CheckBox IsChecked="{Binding SelectedSuperhero.IsHuman}"/>
+                    <TextBlock>
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Text" Value="not human"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedSuperhero.IsHuman}" Value="True">
+                                        <Setter Property="Text" Value="human"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                     <Label>FirstAppearance</Label>
-                    <TextBlock Text="{Binding SelectedSuperhero.FirstAppearance}"/>
+                    <TextBlock Text="{Binding SelectedSuperhero.FirstAppearance}" />
+                    <Calendar SelectedDate="{Binding SelectedSuperhero.FirstAppearance}" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Bild">
+            <GroupBox>
+                <GroupBox.Header>
+                    <TextBlock Text="Bild" FontWeight="Bold" FontSize="14" Foreground="Red"/>
+                </GroupBox.Header>
                 <Image Source="{Binding SelectedSuperhero.Bild}" Width="200" Height="300"/>
             </GroupBox>
         </StackPanel>
 
-        <StackPanel Orientation="Vertical">
+        <StackPanel Grid.Row="3" Orientation="Vertical">
             <Label>PowerLevel erhöhen</Label>
             <TextBlock>einen Superhelden auswählen</TextBlock>
             <Slider Minimum="100" Maximum="7500" Value="{Binding SelectedSuperheroPowerLevel, Mode=TwoWay}"></Slider>
             <TextBlock Text="{Binding SelectedSuperheroPowerLevel}"/>
         </StackPanel>
-        
-    </DockPanel>
+
+        <StatusBar Grid.Row="4">
+            <StatusBarItem Content="{Binding StatusText}" />
+            <StatusBarItem Content="{Binding StatusText2}" />
+            <StatusBarItem Content="{Binding StatusText3}" />
+        </StatusBar>
+    </Grid>
 </Window>

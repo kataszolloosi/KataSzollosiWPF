@@ -91,5 +91,25 @@ namespace KataSzöllösiWPF
 
             suche.Show();
         }
+
+        private void Copy_Click(object sender, RoutedEventArgs e)
+        {
+            // Überprüfen, ob ein Produkt ausgewählt wurde
+            if (superHeroViewModel.SelectedSuperhero != null)
+            {
+                // Erstellen einer Kopie des ausgewählten Produkts
+                Superhero copiedSuperhero = new Superhero()
+                {
+                    Name = superHeroViewModel.SelectedSuperhero.Name,
+                    PowerLevel = superHeroViewModel.SelectedSuperhero.PowerLevel,
+                    IsHuman = superHeroViewModel.SelectedSuperhero.IsHuman,
+                    FirstAppearance = superHeroViewModel.SelectedSuperhero.FirstAppearance,
+                    Bild = superHeroViewModel.SelectedSuperhero.Bild
+                };
+
+                // Füge die Kopie zum ObservableCollection hinzu
+                superHeroViewModel.AddSuperhero(copiedSuperhero);
+            }
+        }
     }
 }

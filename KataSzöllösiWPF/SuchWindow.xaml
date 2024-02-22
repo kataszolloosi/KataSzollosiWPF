@@ -12,19 +12,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <GroupBox Grid.Column="0" Header="Superheroes">
-            <ListBox ItemsSource="{Binding ObsSuperheroes}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Name}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </GroupBox>
-
-        <StackPanel Grid.Column="1" Orientation="Vertical">
+        <StackPanel Grid.Column="0" Orientation="Vertical">
             <TextBox Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <ListBox ItemsSource="{Binding SearchResult}">
                 <ListBox.ItemTemplate>
